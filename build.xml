@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Skuni" default="build-package" basedir=".">
+	
+	<exec executable="bash" outputproperty="version">
+		<arg value="-c" />
+		<arg value="monodis --assembly Matteus.AIContest.Skuni/bin/Debug/Matteus.AIContest.Skuni.exe | grep Version | awk '{print $2;}'" />
+	</exec>
+
+	<target name="build-package">
+		<zip destfile="packages/skuni-${version}.zip" update="true">
+			<mappedresources>
+				<zipfileset dir=".">
+					<include name="Matteus.AIContest/**/**.cs" />
+					<include name="Matteus.AIContest.Skuni/**/**.cs" />
+				</zipfileset>
+				<flattenmapper/>
+			</mappedresources>
+		</zip>
+	</target>
+	
+</project>
