@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matteus.BombAI.Host", "Matt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matteus.BombAI.ConsoleDumpPlayer", "Matteus.BombAI.ConsoleDumpPlayer\Matteus.BombAI.ConsoleDumpPlayer.csproj", "{0EE73756-A396-4A8D-A74C-1E23025487EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matteus.BombAI.Afmen", "Matteus.BombAI.Afmen\Matteus.BombAI.Afmen.csproj", "{7F99CAE5-292D-4F4F-BCE5-ED38DFFEC291}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matteus.BombAI.Extra", "Matteus.BombAI.Extra\Matteus.BombAI.Extra.csproj", "{D79472E8-D457-4211-9B4C-4BB51F3F785D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -36,6 +40,14 @@ Global
 		{571119E7-25EC-471B-83CA-B510475E6B91}.Debug|x86.Build.0 = Debug|x86
 		{571119E7-25EC-471B-83CA-B510475E6B91}.Release|x86.ActiveCfg = Release|x86
 		{571119E7-25EC-471B-83CA-B510475E6B91}.Release|x86.Build.0 = Release|x86
+		{7F99CAE5-292D-4F4F-BCE5-ED38DFFEC291}.Debug|x86.ActiveCfg = Debug|x86
+		{7F99CAE5-292D-4F4F-BCE5-ED38DFFEC291}.Debug|x86.Build.0 = Debug|x86
+		{7F99CAE5-292D-4F4F-BCE5-ED38DFFEC291}.Release|x86.ActiveCfg = Release|x86
+		{7F99CAE5-292D-4F4F-BCE5-ED38DFFEC291}.Release|x86.Build.0 = Release|x86
+		{D79472E8-D457-4211-9B4C-4BB51F3F785D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D79472E8-D457-4211-9B4C-4BB51F3F785D}.Debug|x86.Build.0 = Debug|Any CPU
+		{D79472E8-D457-4211-9B4C-4BB51F3F785D}.Release|x86.ActiveCfg = Release|Any CPU
+		{D79472E8-D457-4211-9B4C-4BB51F3F785D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
