@@ -57,7 +57,7 @@ namespace Matteus.BombAI.Skuni
 		{
 			round++;
 
-			if(round == 46)
+			if(round == 176)
 			{
 				int a = 0;
 			}
@@ -223,14 +223,20 @@ namespace Matteus.BombAI.Skuni
 			// If we place a bomb here, can we find a safe spot then?
 			bool safety = false;
 
-			// Simulate a bomb placement
-			Bomb bomb = new Bomb(me, 5);
-			currentTile.Bombs.Add(bomb);
-			bomb.AddTheatToBoard(game.Board);
-
 			// We gotta calculate bomb chain reactions, so save every previous tick.
 			Dictionary<Bomb, int> actuallBombTicks = new Dictionary<Bomb, int>();
 			foreach(Bomb b in game.Bombs) actuallBombTicks.Add(b, b.Ticks);
+
+			// Simulate a bomb placement of all players
+			List<Bomb> simulatingBombs = new List<Bomb>();
+			foreach(Player player in game.Players.Values.Where(x => !x.Dead))
+			{
+				Bomb bomb = new Bomb(player, 5);
+				game.Bombs.Add(bomb);
+				currentTile.Bombs.Add(bomb);
+				bomb.AddTheatToBoard(game.Board);
+				simulatingBombs.Add(bomb);
+			}
 
 			// Now we can perform the calculation
 			CalculateBombChainReactions();
@@ -257,8 +263,13 @@ namespace Matteus.BombAI.Skuni
 			}
 
 			// Reverse the changes done by our simulation
-			currentTile.Bombs.Remove(bomb);
-			foreach(Tile t in game.Board.Tiles()) t.ThreatheningBombs.Remove(bomb);
+			foreach(Bomb bomb in simulatingBombs)
+			{
+				currentTile.Bombs.Remove(bomb);
+				game.Bombs.Remove(bomb);
+			}
+
+			foreach(Tile t in game.Board.Tiles()) t.ThreatheningBombs.RemoveAll(x => simulatingBombs.Contains(x));
 			foreach(var kvp in actuallBombTicks) kvp.Key.Ticks = kvp.Value;
 
 			// No safe spot, it's not safe to place a bomb here.
@@ -560,14 +571,14 @@ namespace Matteus.BombAI.Skuni
 		/// <param name='player'>
 		/// Player.
 		/// </param>
-		private IList<Tile> GetPathToPlayer(Player player, Func<Tile, bool> predicate = null)
+		private IList<Tile> GetPathToPlayer(Player player)
 		{
 			// Get tiles
 			Tile fromTile = game.Board[me.Position];
 			Tile toTile = game.Board[player.Position];
 
 			// Now, find path from "fromTile" to "toTile".
-			var tilePath = pathfinder.FindPath(fromTile, toTile);
+			var tilePath = pathfinder.FindPath(fromTile, toTile, x => x.Walkable || x.Players.Contains(player));
 
 			return tilePath;
 		}
@@ -579,15 +590,15 @@ namespace Matteus.BombAI.Skuni
 		/// <returns>
 		/// All paths to players.
 		/// </returns>
-		private Dictionary<Player, IList<Tile>> GetAllPathsToPlayers(Func<Tile, bool> predicate = null)
+		private Dictionary<Player, IList<Tile>> GetAllPathsToPlayers()
 		{
 			Dictionary<Player, IList<Tile>> pathsToPlayers = new Dictionary<Player, IList<Tile>>();
 
 			foreach(Player player in game.Players.Values)
 			{
-				if(player == me) continue;
+				if(player == me || player.Dead) continue;
 
-				pathsToPlayers.Add(player, GetPathToPlayer(player, predicate));
+				pathsToPlayers.Add(player, GetPathToPlayer(player));
 			}
 
 			return pathsToPlayers;
