@@ -90,6 +90,11 @@ namespace Matteus.BombAI
 			return tiles;
 		}
 
+		public IEnumerable<Tile> DetonationTilesTo(Position position, int bombCount = 1)
+		{
+			return DetonationTilesTo(position.X, position.Y, bombCount);
+		}
+
 		public IEnumerable<Tile> DetonationTilesTo(Player player, int bombCount = 1)
 		{
 			return DetonationTilesTo(player.Position.X, player.Position.Y, bombCount);

@@ -218,11 +218,27 @@ namespace Matteus.BombAI
 
 		public void Run(IBot bot)
 		{
+
+#if DEBUG
+			Stopwatch watch = new Stopwatch();
+#endif
 			while(Read())
 			{
+#if DEBUG
+				watch.Reset();
+				watch.Start();
+#endif
+
 				Command command = bot.GetCommand();
 				Console.WriteLine(command);
 				OnBotCommandRecivied(command);
+
+#if DEBUG
+				if(watch.Elapsed.TotalSeconds > 0.5)
+				{
+					// Debugger.Break();
+				}
+#endif
 			}
 		}
 	}
