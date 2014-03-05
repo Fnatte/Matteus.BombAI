@@ -1,4 +1,4 @@
 Matteus.BombAI
 ==============
 
-Robot för http://aicontest.attentec.se/
+Robot skriven i C#/Mono för http://aicontest.attentec.se/.
